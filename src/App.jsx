@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Trash2, Copy, CheckCircle, Loader, RefreshCw } from 'lucide-react';
+import { Plus, Trash2, Copy, CheckCircle, Loader, RefreshCw, Monitor, X } from 'lucide-react';
 
 // ============================================
 // IMPORTANT: ADD YOUR GOOGLE APPS SCRIPT URL HERE
@@ -18,6 +18,7 @@ export default function TeacherDashboard() {
   const [responses, setResponses] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loadingResponses, setLoadingResponses] = useState(false);
+  const [displayMode, setDisplayMode] = useState(null); // For board display
 
   // Load questions when component mounts
   useEffect(() => {
@@ -176,6 +177,53 @@ export default function TeacherDashboard() {
     setSelectedQuestion(null);
     setResponses([]);
   };
+
+  const handleDisplayOnBoard = (question) => {
+    setDisplayMode(question);
+  };
+
+  const handleExitDisplay = () => {
+    setDisplayMode(null);
+  };
+
+  // Board Display Mode - Full screen for projector
+  if (displayMode) {
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-indigo-600 to-purple-700 p-8 flex items-center justify-center">
+        <button
+          onClick={handleExitDisplay}
+          className="fixed top-4 right-4 bg-white text-gray-700 px-4 py-2 rounded-lg shadow-lg hover:bg-gray-100 transition-colors flex items-center gap-2 z-10"
+        >
+          <X size={20} />
+          Exit Display
+        </button>
+        
+        <div className="max-w-5xl w-full bg-white rounded-2xl shadow-2xl p-12 text-center">
+          <div className="mb-8">
+            <div className="text-gray-500 text-xl mb-3 uppercase tracking-wider">Question Code</div>
+            <div className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-8 py-6 rounded-xl inline-block">
+              <div className="font-mono font-bold text-6xl tracking-widest">
+                {displayMode.id}
+              </div>
+            </div>
+          </div>
+          
+          <div className="border-t-2 border-gray-200 pt-8 mt-8">
+            <div className="text-gray-500 text-xl mb-4 uppercase tracking-wider">Question</div>
+            <div className="text-gray-800 text-4xl leading-relaxed font-medium">
+              {displayMode.question}
+            </div>
+          </div>
+          
+          <div className="mt-12 pt-8 border-t-2 border-gray-200">
+            <div className="text-gray-400 text-lg">
+              Students: Go to the app and enter code <span className="font-mono font-bold text-indigo-600">{displayMode.id}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   // Show setup message if API URL not configured
   if (API_URL === "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE") {
@@ -436,12 +484,21 @@ export default function TeacherDashboard() {
                         <p className="text-xs text-gray-400 mb-3">
                           Created {new Date(q.createdAt).toLocaleString()}
                         </p>
-                        <button
-                          onClick={() => handleViewResponses(q)}
-                          className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-purple-700 transition-colors"
-                        >
-                          View Responses
-                        </button>
+                        <div className="flex gap-2">
+                          <button
+                            onClick={() => handleViewResponses(q)}
+                            className="bg-purple-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-purple-700 transition-colors"
+                          >
+                            View Responses
+                          </button>
+                          <button
+                            onClick={() => handleDisplayOnBoard(q)}
+                            className="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors flex items-center gap-2"
+                          >
+                            <Monitor size={16} />
+                            Display on Board
+                          </button>
+                        </div>
                       </div>
                       <button
                         onClick={() => handleDeleteQuestion(q.id)}
