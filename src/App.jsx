@@ -4,10 +4,14 @@ import { Plus, Trash2, Copy, CheckCircle, Loader, RefreshCw, Monitor, X } from '
 // ============================================
 // IMPORTANT: ADD YOUR GOOGLE APPS SCRIPT URL HERE
 // ============================================
-//const API_URL = "https://script.google.com/macros/s/AKfycbzKo6XA6EnL3DLxSh0BslQkTVH9kn8B8gP5Sqb2eC_JP0Yy4HfmiqWiEKVDZd2R9eNJ/exec";
-const API_URL = "https://script.google.com/macros/s/AKfycbzKo6XA6EnL3DLxSh0BslQkTVH9kn8B8gP5Sqb2eC_JP0Yy4HfmiqWiEKVDZd2R9eNJ/exec";
-const STUDENT_APP_URL = "https://student.mrrafales.com";
+   const API_URL = "https://script.google.com/macros/s/AKfycbzKo6XA6EnL3DLxSh0BslQkTVH9kn8B8gP5Sqb2eC_JP0Yy4HfmiqWiEKVDZd2R9eNJ/exec";
 // Example: "https://script.google.com/macros/s/AKfycby.../exec"
+
+// ============================================
+// IMPORTANT: ADD YOUR STUDENT APP URL HERE
+// ============================================
+const STUDENT_APP_URL = "https://student.mrrafales.com";
+// Example: "https://student.mrrafales.com" or "https://student-qa.vercel.app"
 
 export default function TeacherDashboard() {
   const [questions, setQuestions] = useState([]);
@@ -190,6 +194,9 @@ export default function TeacherDashboard() {
 
   // Board Display Mode - Full screen for projector
   if (displayMode) {
+    // Generate QR code URL (using free QR code API)
+    const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(STUDENT_APP_URL)}`;
+    
     return (
       <div className="min-h-screen bg-gradient-to-br from-indigo-600 to-purple-700 p-8 flex items-center justify-center">
         <button
@@ -200,26 +207,48 @@ export default function TeacherDashboard() {
           Exit Display
         </button>
         
-        <div className="max-w-5xl w-full bg-white rounded-2xl shadow-2xl p-12 text-center">
-          <div className="mb-8">
-            <div className="text-gray-500 text-xl mb-3 uppercase tracking-wider">Question Code</div>
-            <div className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-8 py-6 rounded-xl inline-block">
-              <div className="font-mono font-bold text-6xl tracking-widest">
-                {displayMode.id}
+        <div className="max-w-6xl w-full bg-white rounded-2xl shadow-2xl p-12">
+          <div className="grid md:grid-cols-3 gap-8 items-center">
+            {/* Left: QR Code */}
+            <div className="flex flex-col items-center justify-center">
+              <div className="mb-4">
+                <div className="text-gray-500 text-lg mb-2 uppercase tracking-wider text-center">Scan to Access</div>
+                <div className="bg-white p-4 rounded-xl shadow-lg border-4 border-indigo-500">
+                  <img 
+                    src={qrCodeUrl} 
+                    alt="QR Code"
+                    className="w-64 h-64"
+                  />
+                </div>
+              </div>
+              <div className="text-gray-600 text-center text-sm mt-2">
+                or visit: {STUDENT_APP_URL.replace('https://', '').replace('http://', '')}
+              </div>
+            </div>
+            
+            {/* Middle & Right: Code and Question */}
+            <div className="md:col-span-2">
+              <div className="mb-8">
+                <div className="text-gray-500 text-xl mb-3 uppercase tracking-wider">Question Code</div>
+                <div className="bg-gradient-to-r from-indigo-500 to-purple-600 text-white px-8 py-6 rounded-xl inline-block">
+                  <div className="font-mono font-bold text-6xl tracking-widest">
+                    {displayMode.id}
+                  </div>
+                </div>
+              </div>
+              
+              <div className="border-t-2 border-gray-200 pt-8">
+                <div className="text-gray-500 text-xl mb-4 uppercase tracking-wider">Question</div>
+                <div className="text-gray-800 text-3xl leading-relaxed font-medium">
+                  {displayMode.question}
+                </div>
               </div>
             </div>
           </div>
           
-          <div className="border-t-2 border-gray-200 pt-8 mt-8">
-            <div className="text-gray-500 text-xl mb-4 uppercase tracking-wider">Question</div>
-            <div className="text-gray-800 text-4xl leading-relaxed font-medium">
-              {displayMode.question}
-            </div>
-          </div>
-          
-          <div className="mt-12 pt-8 border-t-2 border-gray-200">
-            <div className="text-gray-400 text-lg">
-              Students: Go to the app and enter code <span className="font-mono font-bold text-indigo-600">{displayMode.id}</span>
+          <div className="mt-8 pt-8 border-t-2 border-gray-200 text-center">
+            <div className="text-gray-500 text-lg">
+              <span className="font-bold text-indigo-600">Instructions:</span> Scan the QR code or go to the app and enter code <span className="font-mono font-bold text-2xl text-indigo-600">{displayMode.id}</span>
             </div>
           </div>
         </div>
@@ -228,16 +257,24 @@ export default function TeacherDashboard() {
   }
 
   // Show setup message if API URL not configured
-  if (API_URL === "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE") {
+  if (API_URL === "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE" || STUDENT_APP_URL === "YOUR_STUDENT_APP_URL_HERE") {
     return (
       <div className="min-h-screen bg-gradient-to-br from-purple-50 to-pink-100 p-4 flex items-center justify-center">
         <div className="max-w-2xl bg-white rounded-lg shadow-lg p-8">
           <h1 className="text-2xl font-bold text-red-600 mb-4">Setup Required</h1>
           <p className="text-gray-700 mb-4">
-            The Google Sheets API URL needs to be configured. Please follow the setup instructions in the deployment guide.
+            The following configurations need to be set in your app:
           </p>
+          <ul className="list-disc list-inside space-y-2 text-gray-700 mb-4">
+            {API_URL === "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE" && (
+              <li>Google Sheets API URL (API_URL)</li>
+            )}
+            {STUDENT_APP_URL === "YOUR_STUDENT_APP_URL_HERE" && (
+              <li>Student App URL (STUDENT_APP_URL) - needed for QR code generation</li>
+            )}
+          </ul>
           <p className="text-sm text-gray-600">
-            Update the <code className="bg-gray-100 px-2 py-1 rounded">API_URL</code> variable in <code className="bg-gray-100 px-2 py-1 rounded">src/App.jsx</code>
+            Update these variables in <code className="bg-gray-100 px-2 py-1 rounded">src/App.jsx</code> (lines 6-13)
           </p>
         </div>
       </div>
