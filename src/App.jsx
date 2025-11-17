@@ -4,7 +4,9 @@ import { Plus, Trash2, Copy, CheckCircle, Loader, RefreshCw, Monitor, X } from '
 // ============================================
 // IMPORTANT: ADD YOUR GOOGLE APPS SCRIPT URL HERE
 // ============================================
+//const API_URL = "https://script.google.com/macros/s/AKfycbzKo6XA6EnL3DLxSh0BslQkTVH9kn8B8gP5Sqb2eC_JP0Yy4HfmiqWiEKVDZd2R9eNJ/exec";
 const API_URL = "https://script.google.com/macros/s/AKfycbzKo6XA6EnL3DLxSh0BslQkTVH9kn8B8gP5Sqb2eC_JP0Yy4HfmiqWiEKVDZd2R9eNJ/exec";
+const STUDENT_APP_URL = "https://student.mrrafales.com";
 // Example: "https://script.google.com/macros/s/AKfycby.../exec"
 
 export default function TeacherDashboard() {
