@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Trash2, Copy, CheckCircle, Loader, RefreshCw, Monitor, X } from 'lucide-react';
+import QRCode from 'react-qr-code';
 
 // ============================================
 // IMPORTANT: ADD YOUR GOOGLE APPS SCRIPT URL HERE
 // ============================================
-   const API_URL = "https://script.google.com/macros/s/AKfycbzKo6XA6EnL3DLxSh0BslQkTVH9kn8B8gP5Sqb2eC_JP0Yy4HfmiqWiEKVDZd2R9eNJ/exec";
+const API_URL = "https://script.google.com/macros/s/AKfycbzKo6XA6EnL3DLxSh0BslQkTVH9kn8B8gP5Sqb2eC_JP0Yy4HfmiqWiEKVDZd2R9eNJ/exec";
 // Example: "https://script.google.com/macros/s/AKfycby.../exec"
 
 // ============================================
@@ -194,9 +195,6 @@ export default function TeacherDashboard() {
 
   // Board Display Mode - Full screen for projector
   if (displayMode) {
-    // Generate QR code URL (using free QR code API)
-    const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=${encodeURIComponent(STUDENT_APP_URL)}`;
-    
     return (
       <div className="min-h-screen bg-gradient-to-br from-indigo-600 to-purple-700 p-8 flex items-center justify-center">
         <button
@@ -214,10 +212,11 @@ export default function TeacherDashboard() {
               <div className="mb-4">
                 <div className="text-gray-500 text-lg mb-2 uppercase tracking-wider text-center">Scan to Access</div>
                 <div className="bg-white p-4 rounded-xl shadow-lg border-4 border-indigo-500">
-                  <img 
-                    src={qrCodeUrl} 
-                    alt="QR Code"
-                    className="w-64 h-64"
+                  <QRCode 
+                    value={STUDENT_APP_URL}
+                    size={256}
+                    level="M"
+                    style={{ height: "auto", maxWidth: "100%", width: "100%" }}
                   />
                 </div>
               </div>
