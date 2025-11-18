@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { Plus, Trash2, Copy, CheckCircle, Loader, RefreshCw, Monitor, X } from 'lucide-react';
-import QRCode from 'react-qr-code';
 
 // ============================================
 // IMPORTANT: ADD YOUR GOOGLE APPS SCRIPT URL HERE
@@ -212,11 +211,11 @@ export default function TeacherDashboard() {
               <div className="mb-4">
                 <div className="text-gray-500 text-lg mb-2 uppercase tracking-wider text-center">Scan to Access</div>
                 <div className="bg-white p-4 rounded-xl shadow-lg border-4 border-indigo-500">
-                  <QRCode 
-                    value={STUDENT_APP_URL}
-                    size={256}
-                    level="M"
-                    style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+                  <img 
+                    src="/qr-code.png" 
+                    alt="QR Code to Student App"
+                    className="w-64 h-64"
+                    style={{ imageRendering: 'pixelated' }}
                   />
                 </div>
               </div>
