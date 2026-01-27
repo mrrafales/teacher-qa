@@ -27,11 +27,6 @@ export default function TeacherDashboard() {
   const [displayMode, setDisplayMode] = useState(null); // For board display
   
   // Timer state
-  const [timerMinutes, setTimerMinutes] = useState(5);
-  const [timeRemaining, setTimeRemaining] = useState(null);
-  const [timerRunning, setTimerRunning] = useState(false);
-  
-  // Timer state
   const [timerMinutes, setTimerMinutes] = useState(5); // Default 5 minutes
   const [timeRemaining, setTimeRemaining] = useState(null); // Seconds remaining
   const [timerRunning, setTimerRunning] = useState(false);
