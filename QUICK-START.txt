@@ -1,0 +1,21 @@
+🚀 QUICK START - 3 STEPS TO GET YOUR APP ONLINE
+
+1. CREATE VERCEL ACCOUNT
+   → Go to vercel.com
+   → Click "Sign Up" (use GitHub or email)
+   → It's FREE!
+
+2. DEPLOY
+   → Click "Add New..." → "Project"
+   → Drag this entire folder onto Vercel
+   → Click "Deploy"
+   → Wait 1-2 minutes
+
+3. SHARE WITH STUDENTS
+   → Copy the URL Vercel gives you (like: student-qa-abc123.vercel.app)
+   → Give it to your students
+   → Done!
+
+📖 See README.md for detailed instructions and custom domain setup.
+
+⚡ That's it! Your app will be live in under 5 minutes.
