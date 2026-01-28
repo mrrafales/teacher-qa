@@ -4,13 +4,13 @@ import { Plus, Trash2, Copy, CheckCircle, Loader, RefreshCw, Monitor, X, Play, P
 // ============================================
 // IMPORTANT: ADD YOUR GOOGLE APPS SCRIPT URL HERE
 // ============================================
-const API_URL = "YOUR_GOOGLE_APPS_SCRIPT_URL_HERE";
+const API_URL = "https://script.google.com/macros/s/AKfycbzKo6XA6EnL3DLxSh0BslQkTVH9kn8B8gP5Sqb2eC_JP0Yy4HfmiqWiEKVDZd2R9eNJ/exec";
 // Example: "https://script.google.com/macros/s/AKfycby.../exec"
 
 // ============================================
 // IMPORTANT: ADD YOUR STUDENT APP URL HERE
 // ============================================
-const STUDENT_APP_URL = "YOUR_STUDENT_APP_URL_HERE";
+const STUDENT_APP_URL = "https://student.mrrafales.com/";
 // Example: "https://student.mrrafales.com" or "https://student-qa.vercel.app"
 
 export default function TeacherDashboard() {
